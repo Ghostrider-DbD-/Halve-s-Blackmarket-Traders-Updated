@@ -14,18 +14,11 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	Contact : halvhjearne@gmail.com
-*/
 
-    _player = _this select 0;
-    _nr = _this select 1;
-    _cIndex = EPOCH_customVars find "Crypto";
-    _vars = _player getVariable["VARS", call EPOCH_defaultVars_SEPXVar];
-    _current_crypto = _vars select _cIndex;
-    _current_cryptoRaw = _current_crypto;
-    _playerCryptoLimit = EPOCH_customVarLimits select _cIndex;
-    _playerCryptoLimit params ["_playerCryptoLimitMax","_playerCryptoLimitMin"];
-    _current_crypto = ((_current_cryptoRaw + _nr) min _playerCryptoLimitMax) max _playerCryptoLimitMin;
-    _current_crypto remoteExec ['EPOCH_effectCrypto',(owner _player)];
-    _vars set[_cIndex, _current_crypto];
-    _player setVariable["VARS", _vars];
+	Edited by Ghostrider-GRG to incorporate fixes from He-Man
+	https://epochmod.com/forum/topic/34661-release-hs-blackmarket-16-new-trader-system-special-trader-blackmarket/page/46/
+
+*/
+_this call EPOCH_server_effectCrypto;
+
   

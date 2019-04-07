@@ -1,7 +1,6 @@
 class HSPricing
 {
-	
-    class Land_CanOpener_F 
+ 	class Land_CanOpener_F 
 	{
 		price = 10;
 	};
@@ -320,12 +319,22 @@ class HSPricing
     class ItemLockbox
     {
         price = 250;
-        tax = 0.5;
+        tax = 0.1;
     };
     class ItemSafe
     {
         price = 1250;
-        tax = 0.5;
+        tax = 0.1;
+    };
+    class ItemSafe_s
+    {
+        price = 1250;
+        tax = 0.1;
+    };
+    class ItemGunSafe
+    {
+        price = 1250;
+        tax = 0.1;
     };
     class ItemCompass
     {
@@ -2677,6 +2686,10 @@ class HSPricing
         price = 5;
         tax = 0.1;
     };
+	class 50Rnd_570x28_SMG_03{
+		price = 5;
+		tax = 0.1;
+	};
     class 20rnd_762_magazine
     {
         price = 5;
@@ -2725,64 +2738,59 @@ class HSPricing
     class 150Rnd_762x54_Box
     {
         price = 4;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 150Rnd_762x54_Box_Tracer
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 150Rnd_93x64_Mag
     {
         price = 6;
-        tax = 0.9;
+        tax = 0.1;
     };
 	
 	// A2 Mags
     class Bizon_64Rnd_9x18
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 20Rnd_762x51_DMR
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 20Rnd_762x51_FNFAL
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 30Rnd_556x45_G36
     {
         price = 5;
-        tax = 0.9;
-    };
-    class a2_akyellow_mag_EPOCH
-    {
-        price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 10Rnd_303
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 100Rnd_556x45_BetaCMag
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 10Rnd_762x54_SVD
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
     class 10Rnd_9x39_SP5_VSS
     {
         price = 5;
-        tax = 0.9;
+        tax = 0.1;
     };
 
     class Rangefinder
@@ -3426,6 +3434,22 @@ class HSPricing
     class KitPlotPole
     {
         price = 250;
+    };
+    class KitPlotPole_M
+    {
+        price = 350;
+    };
+    class KitPlotPole_L
+    {
+        price = 450;
+    };
+    class KitPlotPole_XL
+    {
+        price = 550;
+    };
+    class KitPlotPole_XXL
+    {
+        price = 650;
     };
     class KitSolarGen
     {
@@ -4587,18 +4611,18 @@ class HSPricing
         price = 2500;
 		tax = 0.1;
     };
-	class C_Hatchback_01_EPOCH 
-	{
-		price = 5000;
+    class C_Hatchback_01_EPOCH
+    {
+        price = 7500;
 		tax = 0.1;
-	};
+    };
 	class C_Hatchback_01_EPOCH1: C_Hatchback_01_EPOCH{};
 	class C_Hatchback_01_EPOCH2: C_Hatchback_01_EPOCH{};
 	class C_Hatchback_01_EPOCH3: C_Hatchback_01_EPOCH{};
 	class C_Hatchback_01_EPOCH4: C_Hatchback_01_EPOCH{};
     class C_Hatchback_02_EPOCH
     {
-        price = 5000;
+        price = 10000;
 		tax = 0.1;
     };
 	class C_Hatchback_02_EPOCH1: C_Hatchback_02_EPOCH{};
@@ -4607,7 +4631,7 @@ class HSPricing
 	class C_Hatchback_02_EPOCH4: C_Hatchback_02_EPOCH{};
     class C_SUV_01_EPOCH
     {
-        price = 6000;
+        price = 7500;
 		tax = 0.1;
     };
 	class C_SUV_01_EPOCH1: C_SUV_01_EPOCH{};
@@ -4617,62 +4641,62 @@ class HSPricing
 	class A2_Golf_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_HMMWV_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_HMMWV_load_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_Lada_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_SUV_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_SUV_load_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_SUV_armed_EPOCH
 	{
         price = 10000;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_UAZ_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_UAZ_Open_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_Ural_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_Vodnik_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
 	class A2_Volha_EPOCH
 	{
         price = 7500;
-		tax = 0.9;
+		tax = 0.1;
 	};
     class C_Rubberboat_EPOCH
     {
@@ -4714,7 +4738,7 @@ class HSPricing
 	class C_Van_01_transport_EPOCH4: C_Van_01_transport_EPOCH{};
     class C_Boat_Civil_01_EPOCH
     {
-        price = 1500;
+        price = 7500;
 		tax = 0.1;
     };
     class C_Boat_Civil_01_police_EPOCH
@@ -4729,7 +4753,7 @@ class HSPricing
     };
     class B_Heli_Light_01_EPOCH
     {
-        price = 17000;
+        price = 25000;
 		tax = 0.1;
     };
     class B_SDV_01_EPOCH
@@ -4757,7 +4781,7 @@ class HSPricing
 	class O_MRAP_02_EPOCH4: O_MRAP_02_EPOCH{};
     class I_MRAP_03_EPOCH
     {
-        price = 12000;
+        price = 45000;
 		tax = 0.1;
     };
 	class I_MRAP_03_EPOCH1: I_MRAP_03_EPOCH{};
@@ -4766,13 +4790,14 @@ class HSPricing
 	class I_MRAP_03_EPOCH4: I_MRAP_03_EPOCH{};
     class B_G_Offroad_01_armed_EPOCH
     {
-        price = 5000;
+        price = 25000;
 		tax = 0.1;
     };
 	class B_G_Offroad_01_armed_EPOCH1: B_G_Offroad_01_armed_EPOCH{};
 	class B_G_Offroad_01_armed_EPOCH2: B_G_Offroad_01_armed_EPOCH{};
 	class B_G_Offroad_01_armed_EPOCH3: B_G_Offroad_01_armed_EPOCH{};
 	class B_G_Offroad_01_armed_EPOCH4: B_G_Offroad_01_armed_EPOCH{};
+    class I_C_Offroad_02_LMG_F: B_G_Offroad_01_armed_EPOCH{};
     class B_Truck_01_mover_EPOCH
     {
         price = 10000;
@@ -4856,7 +4881,47 @@ class HSPricing
 	class O_Truck_03_covered_EPOCH4: O_Truck_03_covered_EPOCH {};
     class uh1h_Epoch
     {
-        price = 22500;
+		price = 22500;
+		tax = 0.1;
+    };
+    class uh1h_armed_EPOCH
+    {
+		price = 30000;
+		tax = 0.1;
+    };
+    class uh1h_armed_plus_EPOCH
+    {
+		price = 35000;
+		tax = 0.1;
+    };
+    class a2_mi8_EPOCH
+    {
+		price = 22500;
+		tax = 0.1;
+    };
+    class a2_ch47f_EPOCH
+    {
+		price = 22500;
+		tax = 0.1;
+    };
+    class a2_ch47f_armed_EPOCH
+    {
+		price = 30000;
+		tax = 0.1;
+    };
+    class a2_ch47f_armed_plus_EPOCH
+    {
+		price = 35000;
+		tax = 0.1;
+    };
+    class C_Heli_Light_01_armed_EPOCH
+    {
+		price = 30000;
+		tax = 0.1;
+    };
+    class C_Heli_Light_01_armed_plus_EPOCH
+    {
+		price = 35000;
 		tax = 0.1;
     };
     class O_Heli_Light_02_unarmed_EPOCH
@@ -5210,6 +5275,17 @@ class HSPricing
         price = 4400;
 		tax = 0.1;
     };
+    class B_LSV_01_armed_black_F
+    {
+        price = 6400;
+		tax = 0.1;
+    };
+    class B_LSV_01_armed_F
+    {
+        price = 6400;
+		tax = 0.1;
+    };
+  
     class O_LSV_02_unarmed_F
     {
         price = 4300;

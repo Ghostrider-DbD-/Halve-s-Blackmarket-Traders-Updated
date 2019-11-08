@@ -14,10 +14,14 @@ HS_fnc_returnnameandpic = {
 	_txt = "";
 	_libtxt = "";
 	_type = "";
-	_BIStype = [];
+	_BIStype = ["",""];
 	{
 		if(isClass(configFile >> _x >> _item))exitWith{
 			_type = _x;
+			if (_type == "cfgvehicles" && {!(_item isKindOf "LandVehicle" || _item isKindOf "SHIP" || _item isKindOf "AIR" || _item isKindOf "Bag_Base")}) exitwith {
+				diag_log format ["HS Debug: Skipped %1 in Itemslist - Is a not useable cfgvehicle",_item];
+				_txt = "sorted out";
+			};
 			_pic = (gettext (configFile >> _type >> _item >> "picture"));
 			_txt = (gettext (configFile >> _type >> _item >> "displayName"));
 			_libtxt = (gettext (configFile >> _type >> _item >> "Library" >> "libTextDesc"));
@@ -27,42 +31,21 @@ HS_fnc_returnnameandpic = {
 	_return = [_type,_txt,_libtxt,_pic,_BIStype select 0,_BIStype select 1];
 	_return
 };
-
-HL_fnc_isValidClassName = {
-  _cn = _this;
-    private _return = false;
-    if (isClass(configFile >> "CfgWeapons" >> _cn)) then 
-    {
-        _return = true;
-    } else {
-        if (isClass(configFile >> "CfgVehicles" >> _cn)) then 
-        {
-          _return = true;
-        } else {
-            if (isClass(configFile >> "CfgMagazines" >> _cn)) then 
-            {
-                _return = true;
-            } else {
-                if (isClass(configFile >> "CfgGlasses" >> _cn)) then 
-                {
-                  _return = true;
-                };
-            };
-        };
-    };
-    _return
-};
-
 private _config = "HSPricing" call EPOCH_returnConfig;
 HS_trader_itemlist = [];
 for "_i" from 0 to (count _config)-1 do {
 	private _type = _config select _i;
-	if (configName(_type) call HL_fnc_isValidClassName) then {
+	if (isClass _type) then {
 		private _item = configName(_type);
 		if !(_item in _blacklist)then{
 			_price = getNumber(_config >> _item >> "price");
 			_tax = getNumber(_config >> _item >> "tax");
 			_info = _item call HS_fnc_returnnameandpic;
+			_info params ["_type","_txt"];
+			if (_txt isEqualTo "") exitwith {
+				diag_log format ["HS Debug: Skipped %1 in Itemslist - seems to be not a valid class",_item];
+			};
+			if (_txt isEqualTo "sorted out") exitwith {};
 			HS_trader_itemlist pushBack [_item,_price,_tax,_info select 0,_info select 1,_info select 2,_info select 3,_info select 4,_info select 5];
 		};
 	};

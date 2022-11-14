@@ -375,6 +375,11 @@ if(isServer) then{
 // Client stuff...
 if(hasInterface)then{
 	diag_log "[HSBlackmarket]: Client waiting for Trader ...";
+
+	// Initialize functions and the table used to populate fields in trader menus now before the client stuff is all loaded.
+	call compile preprocessFileLineNumbers "trader\tradermenu.sqf";	
+
+	// Add local actions to the traders spawned by the server
 	waitUntil {sleep 1;(!isNil "HSPV_HSBlackmarket")};
 	{
 		_x addAction ["<img size='1.5'image='\a3\Ui_f\data\gui\Rsc\RscDisplayArcadeMap\icon_layout_ca.paa'/> <t color='#0096ff'>HS Trader Menu</t>",
@@ -390,7 +395,6 @@ if(hasInterface)then{
 		},_x, -9, true, true, "", "player distance _target < 5"];
 	}forEach HSPV_HSBlackmarket;
 	HSPV_HSBlackmarket = nil;
-	call compile preprocessFileLineNumbers "trader\tradermenu.sqf";
 	diag_log "[HSBlackmarket]: Client Done ...";
 };
 

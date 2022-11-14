@@ -6,52 +6,8 @@
 	Copyright (C) 2015  Halvhjearne & Suppe > README.md
 */
 
-#include "settings.sqf";
-
-HS_fnc_returnnameandpic = {
-	_item = _this;
-	_pic = "";
-	_txt = "";
-	_libtxt = "";
-	_type = "";
-	_BIStype = ["",""];
-	{
-		if(isClass(configFile >> _x >> _item))exitWith{
-			_type = _x;
-			if (_type == "cfgvehicles" && {!(_item isKindOf "LandVehicle" || _item isKindOf "SHIP" || _item isKindOf "AIR" || _item isKindOf "Bag_Base")}) exitwith {
-				diag_log format ["HS Debug: Skipped %1 in Itemslist - Is a not useable cfgvehicle",_item];
-				_txt = "sorted out";
-			};
-			_pic = (gettext (configFile >> _type >> _item >> "picture"));
-			_txt = (gettext (configFile >> _type >> _item >> "displayName"));
-			_libtxt = (gettext (configFile >> _type >> _item >> "Library" >> "libTextDesc"));
-			_BIStype = _item call BIS_fnc_itemType;
-		};
-	}forEach ["cfgweapons","cfgmagazines","cfgvehicles","cfgglasses"];
-	_return = [_type,_txt,_libtxt,_pic,_BIStype select 0,_BIStype select 1];
-	_return
-};
-private _config = "HSPricing" call EPOCH_returnConfig;
-HS_trader_itemlist = [];
-for "_i" from 0 to (count _config)-1 do {
-	private _type = _config select _i;
-	if (isClass _type) then {
-		private _item = configName(_type);
-		if !(_item in _blacklist)then{
-			_price = getNumber(_config >> _item >> "price");
-			_tax = getNumber(_config >> _item >> "tax");
-			_info = _item call HS_fnc_returnnameandpic;
-			_info params ["_type","_txt"];
-			if (_txt isEqualTo "") exitwith {
-				diag_log format ["HS Debug: Skipped %1 in Itemslist - seems to be not a valid class",_item];
-			};
-			if (_txt isEqualTo "sorted out") exitwith {};
-			HS_trader_itemlist pushBack [_item,_price,_tax,_info select 0,_info select 1,_info select 2,_info select 3,_info select 4,_info select 5];
-		};
-	};
-};
-
-//[item,price,tax,cfg,name,libtxt,pic]
+#include "settings.sqf"
+diag_log format["tradermenu.sqf:  Defining functions"];
 
 HS_trader_menu = {
 	disableSerialization;
@@ -530,6 +486,37 @@ HS_trader_menu = {
 	_ctrl tvSetCurSel [0];
 	systemChat localize "STR_HS_DOUBLECLICKTOADD";
 };
+
+HS_checkavailability = {
+	if(EPOCH_VehicleSlotCount <= 0)exitWith{
+		titleText ["Can't buy a saved vehicle, too many on the map!","PLAIN DOWN"];
+	};
+	titleText ["Vehicle slots available, you can buy one that saves!","PLAIN DOWN"];
+};
+
+HS_buyvehiclesaved = {
+	closeDialog 0;
+	{
+		if((HS_trader_itemlist select _x) select 3 == "cfgvehicles" && (HS_trader_itemlist select _x) select 8 != "Backpack")exitWith{
+			HSPV_traderrequest = [(HS_trader_itemlist select _x),player,2];
+			publicVariableServer "HSPV_traderrequest";
+			HS_BUYSELLARRAY = [];
+		};
+	}forEach HS_BUYSELLARRAY;
+};
+
+HS_buyvehicletemp = {
+	closeDialog 0;
+	{
+		if((HS_trader_itemlist select _x) select 3 == "cfgvehicles" && (HS_trader_itemlist select _x) select 8 != "Backpack")exitWith{
+			HSPV_traderrequest = [(HS_trader_itemlist select _x),player,3];
+			publicVariableServer "HSPV_traderrequest";
+			HS_BUYSELLARRAY = [];
+		};
+	}forEach HS_BUYSELLARRAY;
+};
+
+// Functions tied to dialogs 
 
 HS_additemtolb = {
 	disableSerialization;
@@ -1082,31 +1069,64 @@ HS_confirmtrade = {
 	HS_istrading = nil;
 };
 
-HS_checkavailability = {
-	if(EPOCH_VehicleSlotCount <= 0)exitWith{
-		titleText ["Can't buy a saved vehicle, too many on the map!","PLAIN DOWN"];
+HS_fnc_isClass = {
+	params["_cName",""];
+	private _type = "";
+	if(isClass(configFile >> _x >> _cName))exitWith{
+		_type = _x;
+	}forEach ["cfgweapons","cfgmagazines","cfgvehicles","cfgglasses"];
+	if (_type isEqualTo "") then 
+	{
+		diag_log format["HS_fnc_isClass: _cName %1 | _type = %1",_cName,_type];
+	} else {
+		diag_log format["HS Debug: %1 is not a valid classname and was skipped",_cName];
 	};
-	titleText ["Vehicle slots available, you can buy one that saves!","PLAIN DOWN"];
+	_type
 };
 
-HS_buyvehiclesaved = {
-	closeDialog 0;
+//[item,price,tax,cfg,name,libtxt,pic]
+HS_fnc_returnnameandpic = {
+	_item = _this;
+	_pic = "";
+	_txt = "";
+	_libtxt = "";
+	_type = "";
+	_BIStype = ["",""];
 	{
-		if((HS_trader_itemlist select _x) select 3 == "cfgvehicles" && (HS_trader_itemlist select _x) select 8 != "Backpack")exitWith{
-			HSPV_traderrequest = [(HS_trader_itemlist select _x),player,2];
-			publicVariableServer "HSPV_traderrequest";
-			HS_BUYSELLARRAY = [];
+		if(isClass(configFile >> _x >> _item))exitWith{
+			_type = _x;
+			_pic = (gettext (configFile >> _type >> _item >> "picture"));
+			_txt = (gettext (configFile >> _type >> _item >> "displayName"));
+			_libtxt = (gettext (configFile >> _type >> _item >> "Library" >> "libTextDesc"));
+			_BIStype = _item call BIS_fnc_itemType;
 		};
-	}forEach HS_BUYSELLARRAY;
+	}forEach ["cfgweapons","cfgmagazines","cfgvehicles","cfgglasses"];
+	_return = [_type,_txt,_libtxt,_pic,_BIStype select 0,_BIStype select 1];
+	_return
 };
 
-HS_buyvehicletemp = {
-	closeDialog 0;
-	{
-		if((HS_trader_itemlist select _x) select 3 == "cfgvehicles" && (HS_trader_itemlist select _x) select 8 != "Backpack")exitWith{
-			HSPV_traderrequest = [(HS_trader_itemlist select _x),player,3];
-			publicVariableServer "HSPV_traderrequest";
-			HS_BUYSELLARRAY = [];
+// END OF FUNCTIONS 
+
+diag_log "tradermenu.sqf: all functions define, start the main dialog";
+private _config = "HSPricing" call EPOCH_returnConfig;
+HS_trader_itemlist = [];
+for "_i" from 0 to (count _config)-1 do {
+	private _type = _config select _i;
+	if (isClass _type) then {
+		private _item = configName(_type);
+		if !(_item in _blacklist)then{
+			_price = getNumber(_config >> _item >> "price");
+			_tax = getNumber(_config >> _item >> "tax");
+			_info = _item call HS_fnc_returnnameandpic;
+			_info params ["_type","_txt"];
+			if (_txt isEqualTo "") exitwith {
+				diag_log format ["HS Debug: Skipped %1 in Itemslist - seems to be not a valid class",_item];
+			};
+			if (_txt isEqualTo "sorted out") exitwith {};
+			HS_trader_itemlist pushBack [_item,_price,_tax,_info select 0,_info select 1,_info select 2,_info select 3,_info select 4,_info select 5];
 		};
-	}forEach HS_BUYSELLARRAY;
+	};
 };
+
+// once the list of classnames in HSPricing has been scanned set this flag to true so we do not log bad classnames again.
+HS_loggedBadItems = true;
